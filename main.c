@@ -9,6 +9,7 @@ struct Product{
     int quantity;
 }p;
 
+// Pre-defining Functions
 void addproduct();
 void displayproduct();
 void updateproduct();
@@ -18,6 +19,7 @@ void searchproduct();
 void searchbyid();
 void sort();
 
+// Main Menu Desiging
 int main(){
         int choice;
         
@@ -71,6 +73,7 @@ int main(){
 
 }
 
+// Defining Sort Function
 void sort(){
     printf("<================= Sorted List =================>\n\n");
     printf("%-10s %-10s %-30s \n","Product I'd      ","Product Name     ","Product Quantity     ");
@@ -97,6 +100,7 @@ void sort(){
     fclose(fp);
 }
 
+// Defining "del" function
 void del(int id){
     int f=0;
     FILE* ft;
@@ -116,6 +120,7 @@ void del(int id){
     rename("temp.txt","product.txt");
 }
 
+// Defining Add a Product Function
 void addproduct(){
     fp=fopen("product.txt","ab");
 
@@ -136,6 +141,7 @@ void addproduct(){
     fclose(fp);
 }
 
+// Defining display function
 void displayproduct(){
     printf("<================ Product List ================>\n\n");
     printf("%-10s %-10s %-30s \n","Product I'd      ","Product Name     ","Product Quantity     ");
