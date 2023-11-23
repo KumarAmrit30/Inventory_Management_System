@@ -21,7 +21,24 @@ void sort();
 
 int main(){
         int choice;
+        int id;
         // Main Menu
+        printf("WELCOME SUPPORT STAFF MEMBERS\n");
+        printf("KINDLY ENTER YOUR STAFF ID");
+        scanf("%d",&id);
+        if(id==1)
+        {
+            printf("WELCOME ARCHIVIST AMRIT KUMAR");
+        }
+        else if (id==2)
+        {
+            printf("WELCOME DATABASE MANAGER SHUBHANGI MATHUR");
+        }
+        else 
+        {
+            printf("WELCOME STAFF MANEGER SARTHAK SHARMA");
+        }
+        
         while(1){
             printf("<========= Inventory Management System =========>\n\n");
             printf("                  1. Add Product                 \n");
