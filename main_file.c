@@ -9,6 +9,7 @@ struct Product{
     int quantity;
 }p;
 
+// Pre-defining of functions
 void addproduct();
 void displayproduct();
 void updateproduct();
@@ -20,7 +21,7 @@ void sort();
 
 int main(){
         int choice;
-        
+        // Main Menu
         while(1){
             printf("<========= Inventory Management System =========>\n\n");
             printf("                  1. Add Product                 \n");
@@ -35,6 +36,9 @@ int main(){
             printf("Enter your choice : ");
             scanf("%d",&choice);
             printf("\n");
+
+            // Using Switch Case to take option from user
+
             switch(choice){
                 case 8:
                 printf("<=========== Program exit Successful ===========>\n\n");
@@ -71,6 +75,8 @@ int main(){
 
 }
 
+// Function to sort the Product list by Product I'd
+
 void sort(){
     printf("<================= Sorted List =================>\n\n");
     printf("%-10s %-10s %-30s \n","Product I'd      ","Product Name     ","Product Quantity     ");
@@ -81,6 +87,9 @@ void sort(){
     while(fread(&p,sizeof(p),1,fp)==1){
         p1[c++]=p;
     }
+
+    // Using Bubble sort to sort the list by Product I'd
+
     for(i=0;i<c-1;i++){
         for(j=i+1;j<c;j++){
             if(p1[i].prod_Id > p1[j].prod_Id){
@@ -90,6 +99,9 @@ void sort(){
             }
         }
     }
+
+    // Printing the table after sorting the list by Product I'd
+
     for(int i=0;i<c;i++){
         printf("%-20d %-20s %-40d \n",p1[i].prod_Id,p1[i].prod_name,p1[i].quantity);
     }
@@ -97,24 +109,28 @@ void sort(){
     fclose(fp);
 }
 
+// Function to Delete a Record
+
 void del(int id){
     int f=0;
     FILE* ft;
     fp=fopen("product.txt","rb");
-    ft=fopen("temp.txt","wb");
+    ft=fopen("temp.txt","wb"); 
     while(fread(&p, sizeof(p),1,fp)==1){
         if(id==p.prod_Id){
             f=1;
         }
-        else fwrite(&p,sizeof(p),1,ft);
+        else fwrite(&p,sizeof(p),1,ft); //Copying the old data, to a temp file  
     }
 
     fclose(fp);
     fclose(ft);
 
     remove("product.txt");
-    rename("temp.txt","product.txt");
+    rename("temp.txt","product.txt"); //Renaming the temp file, to Original File
 }
+
+// Function to Add a new Product
 
 void addproduct(){
     fp=fopen("product.txt","ab");
@@ -136,6 +152,8 @@ void addproduct(){
     fclose(fp);
 }
 
+// Function to Display the list of Available Product
+
 void displayproduct(){
     printf("<================ Product List ================>\n\n");
     printf("%-10s %-10s %-30s \n","Product I'd      ","Product Name     ","Product Quantity     ");
@@ -148,6 +166,8 @@ void displayproduct(){
 
     fclose(fp);
 }
+
+// Function to update an Existing Product in the list
 
 void updateproduct(){
     int id,f;
@@ -179,6 +199,8 @@ void updateproduct(){
     else printf("\nProduct not found!\n");
 }
 
+// Function to Delete a product from the list of products
+
 void deleteproduct(){
     int id,f;
     printf("<============== Delete Product ==============>\n\n");
@@ -203,6 +225,8 @@ void deleteproduct(){
     else printf("\nProduct not found");
 
 }
+
+// Function to buy a product from the product list
 
 void buyproduct(){
     int id,f=0;
@@ -232,6 +256,8 @@ void buyproduct(){
     else printf("\n\nProduct not found");
 }
 
+// Function to search the Product by Product I'd
+
 void searchbyid(){
     int id,f=0;
     printf("Enter the Product I'd you want to search : ");
@@ -251,6 +277,8 @@ void searchbyid(){
     else printf("\nRecord found successfull\n");
 
 }
+
+// Function to search the Product by Product Name
 
 void searchbyname(){
     char name[100];
@@ -273,6 +301,8 @@ void searchbyname(){
     else printf("\nRecord found successfull\n");
 }
 
+// Function to Search a Product from product list, with the help of previously defined functions of searching
+// by id and name
 void searchproduct(){
     int ch;
     while(1){
