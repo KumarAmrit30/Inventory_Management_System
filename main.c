@@ -298,3 +298,72 @@ void searchproduct(){
         }
     }
 }
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char username[50];
+    char password[50];
+} User;
+
+void create_account(User *user) {
+    printf("Enter a username: ");
+    scanf("%s", user->username);
+
+    printf("Enter a password: ");
+    scanf("%s", user->password);
+}
+
+int validate_user(User *user) {
+    // Check if the username and password match
+    if (strcmp(user->username, "admin") == 0 && strcmp(user->password, "password") == 0) {
+        return 1; // Success
+    }
+
+    return 0; // Failure
+}
+
+int main() {
+    int option;
+    User user;
+
+    do {
+        printf("\n1. Login\n");
+        printf("2. Create account\n");
+        printf("3. Exit\n");
+        printf("Enter an option: ");
+        scanf("%d", &option);
+
+        switch (option) {
+            case 1:
+                printf("Enter username: ");
+                scanf("%s", user.username);
+
+                printf("Enter password: ");
+                scanf("%s", user.password);
+
+                if (validate_user(&user)) {
+                    printf("Login successful!\n");
+                } else {
+                    printf("Invalid username or password.\n");
+                }
+                break;
+
+            case 2:
+                create_account(&user);
+                printf("Account created successfully!\n");
+                break;
+
+            case 3:
+                printf("Exiting...\n");
+                break;
+
+            default:
+                printf("Invalid option. Please try again.\n");
+        }
+    } while (option != 3);
+
+    return 0;
+}
