@@ -1,6 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <string.h>
 FILE* fp;
 // Defining a structure for the inventory
 struct Product{
@@ -9,7 +8,22 @@ struct Product{
     int quantity;
 }p;
 
-// Pre-defining Functions
+// Defining a structure to store Login information
+struct User {
+    char username[20];
+    char password[20];
+};
+
+// Function to check if the entered credentials are valid
+int validateCredentials(char *inputUsername,char *inputPassword,struct User *users, int numUsers) {
+    for (int i = 0; i < numUsers; i++) {
+        if (strcmp(inputUsername, users[i].username) == 0 && strcmp(inputPassword, users[i].password) == 0) {
+            return 1; // Credentials are valid
+        }
+    }
+    return 0; // Credentials are invalid
+}
+
 void addproduct();
 void displayproduct();
 void updateproduct();
@@ -19,10 +33,31 @@ void searchproduct();
 void searchbyid();
 void sort();
 
-// Main Menu Desiging
-int main(){
+int main() {
+
+    struct User users[] = {
+        {"admin", "admin123"},
+        {"user1", "password1"},
+        {"user2", "password2"},
+        {"user3", "password3"},
+    };
+
+    int numUsers = sizeof(users) / sizeof(users[0]);
+
+    char enteredUsername[20];
+    char enteredPassword[20];
+
+    // Get user input
+    printf("Enter username: ");
+    scanf("%s", enteredUsername);
+
+    printf("Enter password: ");
+    scanf("%s", enteredPassword);
+
+    // Validate credentials
+    if (validateCredentials(enteredUsername, enteredPassword, users, numUsers)) {
+        printf("Login successful. Welcome, %s!\n", enteredUsername);
         int choice;
-        
         while(1){
             printf("<========= Inventory Management System =========>\n\n");
             printf("                  1. Add Product                 \n");
@@ -30,9 +65,8 @@ int main(){
             printf("                  3. Update Product              \n");
             printf("                  4. Delete Product              \n");
             printf("                  5. Search Product              \n");
-            printf("                  6. Buy Product                 \n");
-            printf("                  7. Sort by Product I'd         \n");
-            printf("                  8. Exit                        \n");
+            printf("                  6. Sort by Product I'd         \n");
+            printf("                  7. Exit                        \n");
             printf("\n<===============================================>\n\n");
             printf("Enter your choice : ");
             scanf("%d",&choice);
@@ -68,12 +102,13 @@ int main(){
             printf("\n\n");
             
         }
-        return 0;
+    } else {
+        printf("Invalid credentials. Login failed.\n");
+    }
 
-
+    return 0;
 }
 
-// Defining Sort Function
 void sort(){
     printf("<================= Sorted List =================>\n\n");
     printf("%-10s %-10s %-30s \n","Product I'd      ","Product Name     ","Product Quantity     ");
@@ -100,7 +135,6 @@ void sort(){
     fclose(fp);
 }
 
-// Defining "del" function
 void del(int id){
     int f=0;
     FILE* ft;
@@ -120,7 +154,6 @@ void del(int id){
     rename("temp.txt","product.txt");
 }
 
-// Defining Add a Product Function
 void addproduct(){
     fp=fopen("product.txt","ab");
 
@@ -141,7 +174,6 @@ void addproduct(){
     fclose(fp);
 }
 
-// Defining display function
 void displayproduct(){
     printf("<================ Product List ================>\n\n");
     printf("%-10s %-10s %-30s \n","Product I'd      ","Product Name     ","Product Quantity     ");
@@ -304,3 +336,6 @@ void searchproduct(){
         }
     }
 }
+
+
+
